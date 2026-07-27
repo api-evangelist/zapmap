@@ -1,0 +1,75 @@
+generated: '2026-07-27'
+method: probed
+source: >-
+  Live unauthenticated probes of https://api.zap-map.com/v5/ (2026-07-27). No
+  error reference is published by Zapmap; there is no developer portal to search.
+format: proprietary
+rfc9457: false
+rfc9457_note: >-
+  Responses are served as application/json (not application/problem+json) and use
+  a Zapmap-specific envelope rather than RFC 9457 problem details. HTTP-layer
+  errors outside the /v5 application (404 at the host root, 405 from the
+  underlying Symfony app) fall through as HTML.
+envelope:
+  media_type: application/json; charset=UTF-8
+  shape:
+    success: boolean — false on error
+    resources: array — empty on error
+    notices: array of {type, subtype}
+  example: '{"success":false,"resources":[],"notices":[{"type":"Error","subtype":"Missing
+    API Key"}]}'
+  note: >-
+    Only the error branch of this envelope was observed (no authenticated call was
+    made). `type` carried the value "Error"; the human-readable condition is
+    carried in `subtype`. No numeric error code, no error URI, no request id and no
+    retry hint appears in the observed body.
+errors:
+- http_status: 401
+  type: Error
+  subtype: Missing API Key
+  meaning: The X-Api-Key header was absent from the request.
+  observed_on:
+  - https://api.zap-map.com/v5/
+  - https://api.zap-map.com/v5/chats
+  - https://api.zap-map.com/v5/openapi.json
+  - https://api.zap-map.com/v5/swagger.json
+  - https://api.zap-map.com/v5/docs
+  action: Supply the client API key header; issued only under a Zapmap commercial
+    agreement.
+  note: >-
+    Returned uniformly for every unknown path under /v5 as well as for known ones —
+    the auth check runs ahead of routing, so a 401 here does NOT confirm that the
+    probed path exists.
+- http_status: 405
+  type: http
+  subtype: Method Not Allowed
+  meaning: Path exists but the HTTP method is not routed for it.
+  observed_on:
+  - https://api.zap-map.com/v5/users/compound-filters
+  body_media_type: text/html; charset=utf-8
+  note: >-
+    Rendered as a Symfony HTML error page ("An Error Occurred: Method Not
+    Allowed"), not as the JSON envelope.
+- http_status: 404
+  type: http
+  subtype: Not Found
+  meaning: Path is outside the /v5 application entirely.
+  observed_on:
+  - https://api.zap-map.com/health
+  - https://api.zap-map.com/openapi.json
+  - https://api.zap-map.com/.well-known/security.txt
+  body_media_type: text/html; charset=iso-8859-1
+- http_status: 200
+  type: http
+  subtype: Directory access not allowed
+  meaning: >-
+    The API host root returns a 159-byte static "403 Forbidden — Directory access
+    not allowed." HTML body under an HTTP 200 status. Status/body mismatch recorded
+    as observed.
+  observed_on:
+  - https://api.zap-map.com/
+spark_apis:
+  documented_errors: none published
+  detail: >-
+    The Zapmap Spark Search, Plan and Pay product pages publish no error model,
+    no status codes and no error catalog. Nothing is inferred for them here.

@@ -1,0 +1,136 @@
+generated: '2026-07-27'
+method: probed
+source: >-
+  Live probes of https://api.zap-map.com/v5/ and the first-party Zapmap web map
+  client bundles (https://map.zapmap.com/assets/index-B_UH5h7L.js and
+  https://map.zapmap.com/assets/Container-C9Tr7wxl.js), fetched 2026-07-27.
+scope: >-
+  These conventions describe the UNDOCUMENTED api.zap-map.com/v5 client API that
+  Zapmap's own map, web app and mobile apps call. It is credential-gated and is
+  NOT offered to third parties. The commercial Zapmap Spark APIs (Search, Plan,
+  Pay) publish no conventions of any kind — no base URL, no endpoints, no request
+  or response shape — and nothing here is asserted about them.
+warning: >-
+  Nothing in this file comes from Zapmap documentation, because Zapmap publishes
+  none. Every line is an observation of the live host or of Zapmap's own public
+  browser client. Paths and HTTP methods are read verbatim out of that client;
+  request bodies, response schemas, query-parameter vocabularies and pagination
+  are NOT recorded because they were not observed and are not published. No
+  authenticated request was made.
+base_url: https://api.zap-map.com/v5/
+versioning:
+  style: uri-path
+  current: v5
+  observed_prior_versions: none observed
+  policy_published: false
+  client_version_header:
+    name: client-version
+    observed_values:
+    - '4.9'
+    - '7'
+    note: Sent by the first-party client on every call; purpose undocumented.
+authentication:
+  style: api-key header + bearer user token
+  api_key_header: X-Api-Key
+  user_token_header: 'Authorization: Bearer <accessToken>'
+  login_operation: POST /v5/authentication/login
+  detail: authentication/zapmap-authentication.yml
+media_types:
+  request: application/json
+  response: application/json; charset=UTF-8
+  upload: multipart/binary via POST /v5/uploads/images (image upload); application/pdf
+    accepted as a response type on at least one receipt-style call
+response_envelope:
+  shape:
+    success: boolean
+    resources: array or object — the payload
+    notices: array of {type, subtype}
+  note: >-
+    Observed directly on the 401 branch and implied by the client, which reads
+    `response.resources` after validating every response. The success branch of the
+    envelope was not observed (no authenticated call was made).
+error_envelope:
+  detail: errors/zapmap-error-codes.yml
+  format: proprietary (not RFC 9457)
+idempotency:
+  supported: unknown
+  evidence: >-
+    No idempotency key header, no idempotent-retry contract and no such parameter
+    appears in the client bundle or in any Zapmap public material. Recorded as
+    unknown, NOT as supported.
+pagination:
+  style: unknown
+  evidence: >-
+    The client builds query strings through an internal getQueryString() helper
+    whose parameter vocabulary is not resolvable from the minified bundle. No
+    page/limit/cursor parameter was observed.
+rate_limiting:
+  published: false
+  headers_observed: none
+  note: No RateLimit / X-RateLimit headers were returned on any probed response.
+tracing:
+  request_id_header: none observed
+health:
+  endpoint: GET /v5/health
+  auth_required: false
+  status: 200
+  body: '{"database":"OK","cache":"OK","post_max_size":"OK","upload_max_filesize":"OK"}'
+  note: The only unauthenticated 200 on the API host.
+platform_fingerprint:
+  edge: CloudFront + Envoy
+  application: Symfony (PHP) — identified from the framework HTML error page
+    returned on a 405
+observed_operations:
+  note: >-
+    Verbatim path + method inventory taken from Zapmap's own public web client.
+    Presence here means the first-party client calls it; it does NOT mean the
+    operation is available, supported or licensed for third-party use. Path
+    parameters are shown in {braces} where the client interpolated a variable.
+  operations:
+  - {method: POST, path: /v5/authentication/login}
+  - {method: POST, path: /v5/authentication/reset-password}
+  - {method: GET, path: /v5/chargepoints/locations/search}
+  - {method: GET, path: /v5/chargepoints/locations/list}
+  - {method: GET, path: /v5/chargepoints/filters}
+  - {method: GET, path: /v5/chargepoints/favourites}
+  - {method: POST, path: '/v5/chargepoints/location/{locationId}/favourite'}
+  - {method: POST, path: '/v5/chargepoints/location/{locationId}/unfavourite'}
+  - {method: POST, path: '/v5/chargepoints/location/{locationId}/ice'}
+  - {method: POST, path: '/v5/chargepoints/device/{deviceId}/status'}
+  - {method: POST, path: '/v5/chargepoints/device/{deviceId}/successful-charge'}
+  - {method: GET, path: /v5/filter-mappings}
+  - {method: GET, path: /v5/resources/icons}
+  - {method: GET, path: /v5/chats}
+  - {method: POST, path: /v5/chats}
+  - {method: GET, path: '/v5/chats/{chatId}'}
+  - {method: POST, path: '/v5/chats/{chatId}/report'}
+  - {method: GET, path: /v5/routes}
+  - {method: POST, path: /v5/routes}
+  - {method: POST, path: '/v5/routes/{routeId}'}
+  - {method: DELETE, path: '/v5/routes/{routeId}'}
+  - {method: GET, path: /v5/session/history}
+  - {method: GET, path: '/v5/session/{sessionId}/receipt'}
+  - {method: GET, path: /v5/users/data}
+  - {method: PUT, path: /v5/users/data}
+  - {method: GET, path: /v5/users/avatar}
+  - {method: PUT, path: /v5/users/avatar}
+  - {method: GET, path: /v5/users/ev-models}
+  - {method: PUT, path: /v5/users/ev-models}
+  - {method: POST, path: /v5/users/compound-filters}
+  - {method: DELETE, path: '/v5/users/compound-filters/{sourceId}'}
+  - {method: GET, path: '/v5/driver/options/{optionId}'}
+  - {method: GET, path: /v5/vehicles/manufacturers}
+  - {method: POST, path: /v5/uploads/images}
+  - {method: GET, path: /v5/health}
+no_openapi:
+  reason: >-
+    No OpenAPI, Swagger, GraphQL or AsyncAPI document exists for this surface —
+    /v5/openapi.json, /v5/swagger.json and /v5/docs all answer with the same
+    "Missing API Key" 401 (the auth check precedes routing), and the host-root
+    equivalents 404. No specification is written into openapi/ from these
+    observations: paths and methods are evidence, schemas would be invention.
+related:
+  - authentication/zapmap-authentication.yml
+  - errors/zapmap-error-codes.yml
+  - lifecycle/zapmap-lifecycle.yml
+  - conformance/zapmap-conformance.yml

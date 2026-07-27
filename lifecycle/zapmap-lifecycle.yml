@@ -1,0 +1,60 @@
+generated: '2026-07-27'
+method: probed
+source: >-
+  Live probes of Zapmap hosts and the first-party client bundles, 2026-07-27;
+  search of zapmap.com for versioning, deprecation, SLA and status pages.
+versioning:
+  scheme: uri-path
+  current: v5
+  applies_to: https://api.zap-map.com/v5/ (undocumented client API)
+  docs: null
+  policy_published: false
+  note: >-
+    The v5 prefix is observed in Zapmap's own client, not documented anywhere. A
+    separate `client-version` request header (values 4.9 and 7 observed) versions
+    the CLIENT independently of the URI version; its contract is not published.
+    The commercial Zapmap Spark APIs publish no version identifier at all.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  note: >-
+    No deprecation or sunset policy, no RFC 8594 header evidence, and no versioned
+    migration guidance exists on any public Zapmap surface.
+sla:
+  url: null
+  published: false
+  uptime_target: null
+status_page:
+  url: null
+  published: false
+  evidence: >-
+    https://status.zapmap.com does not resolve (DNS failure), and no status,
+    uptime or incident page is linked from zapmap.com, help.zapmap.com or the
+    Zapmap Spark product pages. The only health signal found is the
+    unauthenticated GET https://api.zap-map.com/v5/health endpoint (HTTP 200,
+    {"database":"OK","cache":"OK","post_max_size":"OK","upload_max_filesize":"OK"}),
+    which is an internal probe endpoint, not a public status page.
+changelog:
+  url: null
+  published: false
+  note: >-
+    https://www.zapmap.com/news is a company/consumer news blog, not a dated API
+    changelog. No release notes exist for Spark or for the v5 client API.
+deprecated_operations: []
+retired_surfaces:
+- name: National Chargepoint Registry (NCR)
+  retired: '2024-11-28'
+  note: >-
+    Not a Zapmap surface, but the upstream public feed whose closure reshaped this
+    market. Recorded per
+    https://www.zapmap.com/for-business/ncr-decommission — "The Government has not
+    put forward any plans to provide free-to-access aggregated charge point data to
+    replace the NCR."
+- name: zap-map.com (legacy domain)
+  status: still live
+  note: >-
+    The pre-rebrand zap-map.com domain still resolves and still hosts the
+    production API host api.zap-map.com, which the zapmap.com-branded clients call.
+    No migration notice or dual-domain policy is published.

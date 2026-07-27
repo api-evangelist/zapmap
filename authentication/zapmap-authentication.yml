@@ -1,0 +1,93 @@
+generated: '2026-07-27'
+method: probed
+source: >-
+  Live unauthenticated probes of https://api.zap-map.com/v5/ plus the first-party
+  Zapmap web map client bundles served from https://map.zapmap.com/assets/
+  (fetched 2026-07-27).
+docs: null
+published_documentation: false
+note: >-
+  Zapmap publishes NO authentication documentation. Nothing below is taken from a
+  developer portal, because none exists; every statement here is an observation of
+  the live production host or of Zapmap's own public browser client. The Zapmap
+  Spark commercial APIs (Search, Plan, Pay) have no published auth scheme at all —
+  the scheme recorded here belongs to the undocumented api.zap-map.com/v5 client
+  API that the Zapmap consumer map and apps call, which is not offered to third
+  parties. Credential VALUES observed in the public client bundle are deliberately
+  NOT recorded in this repository.
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  oauth2_flows: []
+  openid_connect: false
+  mutual_tls: false
+schemes:
+- name: ClientApiKey
+  type: apiKey
+  in: header
+  parameter_name: X-Api-Key
+  required: true
+  applies_to: https://api.zap-map.com/v5/
+  scope: application-level (identifies the calling Zapmap client, not the user)
+  evidence: >-
+    Every unauthenticated request under /v5/ returns HTTP 401 with the JSON body
+    {"success":false,"resources":[],"notices":[{"type":"Error","subtype":"Missing
+    API Key"}]}. The header name X-Api-Key is read verbatim from the first-party
+    web client bundle at
+    https://map.zapmap.com/assets/Container-C9Tr7wxl.js, which sends it on every
+    call to api.zap-map.com/v5.
+  value_recorded: false
+  value_note: >-
+    A live key value is embedded in Zapmap's public JavaScript bundle. It is a
+    real credential belonging to Zapmap and is intentionally not copied into this
+    catalog, and was not used to make any authenticated request.
+- name: UserAccessToken
+  type: http
+  scheme: bearer
+  header: Authorization
+  required_for: user-scoped operations (account data, saved routes, favourites,
+    charging session history, chat/comment posting)
+  issued_by: POST https://api.zap-map.com/v5/authentication/login
+  evidence: >-
+    The web client sends `Authorization: Bearer ${account.data.accessToken}`
+    alongside X-Api-Key on user-scoped calls; the token is obtained from the
+    /v5/authentication/login operation. Token format, lifetime, refresh mechanism
+    and revocation are not published and were not probed.
+  value_recorded: false
+non_auth_required_headers:
+- name: client-version
+  observed_values:
+  - '4.9'
+  - '7'
+  note: >-
+    Sent by the first-party client on every /v5 call. Purpose (client gating /
+    response shaping) is not documented; recorded as observed, not explained.
+spark_apis:
+  documented_scheme: none published
+  detail: >-
+    https://www.zapmap.com/for-business/products/zapmap-spark and its Search, Plan
+    and Pay sub-pages name no API key, OAuth 2, OpenID Connect or mTLS model. Both
+    https://www.zapmap.com/.well-known/openid-configuration and
+    https://api.zap-map.com/.well-known/openid-configuration return 404, so no OIDC
+    discovery document is served anonymously. Access to Spark runs through a sales
+    contact form and a commercial agreement.
+evidence:
+- source: https://api.zap-map.com/v5/
+  status: 401
+  kind: live-probe
+  body: '{"success":false,"resources":[],"notices":[{"type":"Error","subtype":"Missing
+    API Key"}]}'
+- source: https://api.zap-map.com/v5/health
+  status: 200
+  kind: live-probe
+  note: The only unauthenticated 200 found on the API host; returns
+    {"database":"OK","cache":"OK","post_max_size":"OK","upload_max_filesize":"OK"}.
+- source: https://map.zapmap.com/assets/Container-C9Tr7wxl.js
+  kind: first-party-client-bundle
+  note: Zapmap's own public web map SPA; source of the header names and the login
+    operation.
+- source: https://map.zapmap.com/assets/index-B_UH5h7L.js
+  kind: first-party-client-bundle

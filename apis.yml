@@ -36,7 +36,7 @@ accessModel:
   - https://www.zapmap.com/data-licensing
   generated: '2026-07-27'
   method: observed
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://www.zapmap.com/themes/custom/zap_map/assets/favicon/apple-touch-icon.png
 tags:
 - Energy
 - United Kingdom
@@ -121,6 +121,20 @@ apis:
   - type: SignUp
     url: https://www.zapmap.com/contact
 common:
+- type: DomainSecurity
+  url: security/zapmap-domain-security.yml
+- type: Authentication
+  url: authentication/zapmap-authentication.yml
+- type: Conventions
+  url: conventions/zapmap-conventions.yml
+- type: ErrorCatalog
+  url: errors/zapmap-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/zapmap-lifecycle.yml
+- type: Conformance
+  url: conformance/zapmap-conformance.yml
+- type: LLMsTxt
+  url: llms/zapmap-llms.txt
 - type: Website
   url: https://www.zapmap.com/
 - type: Documentation
@@ -135,6 +149,8 @@ common:
   url: https://www.zapmap.com/privacy-policy
 - type: SupportCenter
   url: https://help.zapmap.com
+- type: Support
+  url: https://help.zapmap.com/support/home
 - type: ContactForm
   url: https://www.zapmap.com/contact
 - type: Blog

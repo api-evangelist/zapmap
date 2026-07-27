@@ -350,3 +350,156 @@ actions:
     them because none is published — api.zap-map.com resolves but is entirely
     undocumented and is not asserted as a Spark base URL. No specification,
     endpoint, scope or auth scheme is invented.
+roundTwo:
+  date: '2026-07-27'
+  method: enrichment pipeline, contract-discovery pass
+  summary: |
+    Round one's conclusion stands — Zapmap publishes no developer surface, no
+    specification and no documentation for the Zapmap Spark APIs. Round two did
+    NOT find a hidden spec, but it did find the production client API that round
+    one could only see the front door of, by following Zapmap's own public web
+    client rather than by guessing paths.
+
+    A host round one did not probe — https://map.zapmap.com (HTTP 200,
+    CloudFront + S3, the React SPA embedded at https://www.zapmap.com/live) —
+    ships un-obfuscated JavaScript bundles that call
+    https://api.zap-map.com/v5/. Thirty-five distinct path+method pairs were read
+    verbatim out of those bundles (chargepoint search/list/filters, favourites,
+    device status reporting, routes CRUD, charging session history and receipts,
+    user profile/EV models/avatar, chats and reporting, vehicle manufacturers,
+    image uploads). Live probing confirmed the host is a real, enforcing JSON API:
+    every /v5 path returns HTTP 401 with
+    {"success":false,"resources":[],"notices":[{"type":"Error","subtype":"Missing
+    API Key"}]}, and GET /v5/health returns HTTP 200 with
+    {"database":"OK","cache":"OK","post_max_size":"OK","upload_max_filesize":"OK"} —
+    the only unauthenticated 200 on the host.
+
+    The auth model is therefore now known, from observation rather than
+    documentation: a static X-Api-Key application header plus a
+    `client-version` header on every call, and `Authorization: Bearer
+    <accessToken>` from POST /v5/authentication/login on user-scoped operations.
+    A live key value is embedded in Zapmap's public bundle; it is Zapmap's
+    credential, it is deliberately NOT recorded in this repository, and it was
+    not used to make any authenticated request.
+
+    This does not change the profile's verdict. The v5 API is Zapmap's own
+    first-party client backend, not a product: it is undocumented, unversioned in
+    public, unsupported for third parties, and unrelated to the Spark commercial
+    offer as far as anything public can show. No OpenAPI is written into this
+    repo from these observations — paths and methods are evidence, request and
+    response schemas would be invention. The observations are recorded in
+    conventions/, authentication/ and errors/ instead, and no apis.yml baseURL is
+    asserted.
+  newHostsFound:
+  - url: https://map.zapmap.com/
+    status: 200
+    note: >-
+      First-party Zapmap live-map SPA (Vite/React) on CloudFront. Source of the
+      observed endpoint inventory. HSTS max-age=31536000; includeSubDomains; preload.
+  probes:
+  - url: https://api.zap-map.com/v5/
+    status: 401
+    note: 'JSON envelope: {"success":false,"resources":[],"notices":[{"type":"Error","subtype":"Missing
+      API Key"}]}'
+  - url: https://api.zap-map.com/v5/health
+    status: 200
+    note: Unauthenticated health probe; database/cache/PHP limits OK.
+  - url: https://api.zap-map.com/v5/openapi.json
+    status: 401
+    note: 401 is the auth check firing ahead of routing — NOT evidence the path exists.
+  - url: https://api.zap-map.com/v5/swagger.json
+    status: 401
+  - url: https://api.zap-map.com/v5/docs
+    status: 401
+  - url: https://api.zap-map.com/v5/users/compound-filters
+    status: 405
+    note: Symfony HTML error page ("Method Not Allowed") — identifies the app framework.
+  - url: https://api.zap-map.com/openapi.yaml
+    status: 404
+  - url: https://api.zap-map.com/v1/openapi.json
+    status: 404
+  - url: https://api.zap-map.com/redoc
+    status: 404
+  - url: https://api.zap-map.com/swagger-ui.html
+    status: 404
+  - url: https://api.zap-map.com/.well-known/security.txt
+    status: 404
+  - url: https://api.zap-map.com/.well-known/api-catalog
+    status: 404
+  - url: https://api.zap-map.com/.well-known/oauth-authorization-server
+    status: 404
+  - url: https://api.zap-map.com/.well-known/oauth-protected-resource
+    status: 404
+  - url: https://api.zap-map.com/llms.txt
+    status: 404
+  - url: https://www.zapmap.com/llms.txt
+    status: 403
+    note: nginx 403 Forbidden HTML body, not an llms.txt.
+  - url: https://www.zapmap.com/.well-known/api-catalog
+    status: 404
+  - url: https://www.zapmap.com/.well-known/oauth-authorization-server
+    status: 404
+  - url: https://www.zapmap.com/security
+    status: 404
+  - url: https://www.zapmap.com/responsible-disclosure
+    status: 404
+    note: No vulnerability disclosure programme found; trust./security. subdomains do
+      not resolve.
+  - url: https://www.zapmap.com/pricing
+    status: 404
+    note: No published pricing for any Zapmap product surface.
+  - url: https://www.zapmap.com/register
+    status: 200
+    note: >-
+      Redirects to the homepage — there is no self-serve web account registration.
+      The homepage "Sign up" call to action is a NEWSLETTER signup
+      (/newsletter/sign-up). https://www.zapmap.com/user/login is a real Drupal
+      account login. No SignUp pointer is recorded for the company as a result.
+  - url: https://map.zapmap.com/assets/index-B_UH5h7L.js
+    status: 200
+  - url: https://map.zapmap.com/assets/Container-C9Tr7wxl.js
+    status: 200
+  registriesSearched:
+  - registry: npm
+    query: zapmap / zap-map
+    result: no first-party package
+  - registry: PyPI
+    query: zapmap
+    result: 404
+  - registry: RubyGems
+    query: zapmap
+    result: 404
+  artifactsWritten:
+  - authentication/zapmap-authentication.yml
+  - conventions/zapmap-conventions.yml
+  - errors/zapmap-error-codes.yml
+  - lifecycle/zapmap-lifecycle.yml
+  - conformance/zapmap-conformance.yml
+  - security/zapmap-domain-security.yml
+  - well-known/zapmap-well-known.yml
+  - llms/zapmap-llms.txt
+  notWritten:
+    openapi: No specification exists to harvest, and none is inferred from observed
+      paths.
+    scopes: No OAuth surface; api-key + opaque bearer only.
+    packages: No first-party SDK on any public registry.
+    mcp: No MCP server published or referenced.
+    skills: No OpenAPI to ground an agent skill in.
+    asyncapi: No event, streaming or webhook surface published or observed.
+    sandbox: No sandbox, test credentials or trial of any kind.
+    changelog: /news is company news, not a dated API changelog.
+    cli: No first-party CLI.
+    components: No embeddable developer components (the map embed is a product page,
+      not a published component library).
+    trust-center: Probed; none exists.
+    vulnerability-disclosure: Probed; no security.txt, no policy page, no bug bounty.
+  apisYmlChanges:
+  - Replaced the image with Zapmap's own icon (the field previously pointed at an
+    unrelated Groq logo).
+  - Added artifact pointers - Authentication, Conventions, ErrorCatalog, Lifecycle,
+    Conformance, DomainSecurity, LLMsTxt.
+  - Added a Support pointer to the Zapmap help centre.
+  - 'No WellKnown pointer: every /.well-known/ probe missed, so the index records a
+    verified absence and is not advertised as a discovery document.'
+  - No baseURL, SignUp, Pricing, StatusPage, Deprecation, Security, Compliance,
+    SDKs, Idempotency or Webhooks pointer was added — none of those things exist.

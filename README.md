@@ -105,3 +105,18 @@ Commercial cross-network EV charging payment API that lets a partner application
 - **Auth model:** None published.
 
 See [review.yml](review.yml) for every URL probed, its HTTP status, and the verbatim regulatory evidence.
+
+## Artifacts in This Repository (enrichment round 2026-07-27)
+
+Zapmap publishes no specification, so nothing here is harvested documentation. Every artifact below is either a live probe result or an observation of Zapmap's own public web client, with the evidence recorded inline.
+
+- [authentication/zapmap-authentication.yml](authentication/zapmap-authentication.yml) — the observed auth model of the undocumented `api.zap-map.com/v5` client API: an `X-Api-Key` application header plus `Authorization: Bearer <accessToken>` on user-scoped calls. No credential values are recorded and no authenticated request was made.
+- [conventions/zapmap-conventions.yml](conventions/zapmap-conventions.yml) — URI versioning (`/v5`), the `client-version` header, the `{success, resources, notices[]}` response envelope, the unauthenticated `/v5/health` endpoint, and a verbatim 35-entry path + method inventory read out of the first-party map client.
+- [errors/zapmap-error-codes.yml](errors/zapmap-error-codes.yml) — the proprietary error envelope (not RFC 9457) and every observed HTTP condition.
+- [lifecycle/zapmap-lifecycle.yml](lifecycle/zapmap-lifecycle.yml) — versioning, plus the verified absence of a status page, SLA, changelog and deprecation policy.
+- [conformance/zapmap-conformance.yml](conformance/zapmap-conformance.yml) — standards assessed. No OCPI, OCPP, ISO 15118, OAuth 2, OIDC, RFC 9457 or RFC 9116 conformance; API-key and bearer auth and HSTS confirmed.
+- [security/zapmap-domain-security.yml](security/zapmap-domain-security.yml) — TLS 1.3, HSTS, DNSSEC, SPF and DMARC `p=reject` on `zapmap.com`. No CAA record.
+- [well-known/zapmap-well-known.yml](well-known/zapmap-well-known.yml) — every `/.well-known/` probe and its status. No document is served on any host.
+- [llms/zapmap-llms.txt](llms/zapmap-llms.txt) — generated agent-facing summary. Zapmap serves no `llms.txt` of its own (HTTP 403).
+
+**The round-two finding.** A host the first review had not probed — `map.zapmap.com`, the React map embedded at `zapmap.com/live` — ships un-obfuscated bundles calling `https://api.zap-map.com/v5/`, which is a live, enforcing JSON API (every path returns `401 Missing API Key`; `GET /v5/health` returns 200). That is Zapmap's own first-party client backend, not a product: undocumented, unsupported for third parties, and unconnected to the Spark commercial offer as far as anything public shows. It changes nothing about the verdict, and no OpenAPI is written from it — paths and methods are evidence, schemas would be invention. See `roundTwo` in [review.yml](review.yml).

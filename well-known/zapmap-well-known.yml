@@ -1,0 +1,52 @@
+generated: '2026-07-27'
+method: searched
+source: live HTTP probes of every known Zapmap host, 2026-07-27
+note: >-
+  No /.well-known/ discovery document of any kind is served on any Zapmap host.
+  www.zapmap.com answers /.well-known/security.txt with an nginx "403 Forbidden"
+  HTML page (an access denial, not a document); every other path 404s. The
+  api.zap-map.com API host 404s on all five probes, and its /v5/ prefix answers
+  every unauthenticated request with the same JSON "Missing API Key" 401 rather
+  than any discovery document. Recorded as verified absence, not as a gap to be
+  filled in later.
+documents_found: []
+hosts:
+- host: https://www.zapmap.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    note: nginx 403 Forbidden HTML body; no RFC 9116 document served.
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 403
+    note: nginx 403 Forbidden HTML body; no llms.txt published.
+- host: https://api.zap-map.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://map.zapmap.com
+  note: >-
+    CloudFront-fronted static host serving the first-party Zapmap web map SPA.
+    Not probed for /.well-known/ beyond the root; it is an S3/CloudFront static
+    origin, not an API host.
+  documents:
+  - path: /
+    status: 200
+    note: React SPA shell (Vite build) for the embedded Zapmap live map.
