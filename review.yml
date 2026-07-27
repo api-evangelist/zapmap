@@ -1,0 +1,352 @@
+aid: zapmap
+name: Zapmap
+review:
+  question: >-
+    Does Zapmap expose a public, documented API surface for energy / EV charging
+    data, and what mandate — if any — obliges it to?
+  answer: false
+  date: '2026-07-27'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: ev-charging
+findings:
+  summary: |
+    Zapmap Limited (company number 05960749, Unit 52 Runway East, 1 Victoria St,
+    Redcliffe, Bristol BS1 6AA) runs the UK's largest public EV charging map,
+    app and cross-network payment platform, and is the Department for Transport's
+    contracted electric vehicle chargepoint open data provider. It ships a real,
+    named, three-part commercial API family — Zapmap Spark: Search API, Plan API
+    and Pay API — but publishes NO developer surface for it. There is no
+    developer portal, no API reference, no base URL, no endpoint list, no
+    authentication documentation, no rate limits, no sandbox, no SDK and no
+    machine-readable specification anywhere on the public web. Every Spark
+    product page terminates in a "Contact us" sales form. The Spark pages are
+    marketing collateral describing an API, not documentation of one.
+
+    The central finding for this sector: the United Kingdom DID mandate open
+    data in EV charging — the Public Charge Point Regulations 2023 have required
+    every public charge point operator, since 24 November 2024, to share open
+    data free of charge covering location, real-time availability, connector
+    types and payment methods. That obligation binds CHARGE POINT OPERATORS.
+    Zapmap is not a charge point operator; it is the aggregator standing
+    downstream of the mandate. So the mandate is real, live and enforced in this
+    market, and Zapmap is one of its principal beneficiaries — yet Zapmap itself
+    carries no open-data duty, and the aggregated product of that mandate is
+    delivered to DfT under a commercial contract and sold to the rest of the
+    industry through the paid Zapmap Insights suite. Zapmap publishes no
+    anonymous open feed of its own. An open-data mandate one link up the chain
+    produced a closed commercial API one link down.
+mandate:
+  regime: other
+  regimeName: >-
+    The Public Charge Point Regulations 2023 (UK) — open data, contactless
+    payment and reliability duties on public charge point operators.
+  regimeVerbatim: |
+    From https://www.zapmap.com/for-business/ncr-decommission (fetched
+    2026-07-27, HTTP 200): "Since 24th November 2024 all public EV charge point
+    operators are required ... to share open data free of charge on elements
+    such as location, real-time availability, connector types, and payment
+    methods." The same page records that the National Chargepoint Registry (NCR)
+    "was decommissioned and closed on 28th November 2024" and that "The
+    Government has not put forward any plans to provide free-to-access
+    aggregated charge point data to replace the NCR."
+  bindsThisOrganization: false
+  bindsThisOrganizationNote: |
+    The duty-holder under the Public Charge Point Regulations 2023 is the public
+    charge point operator. Zapmap owns and operates no charge points; it is a
+    mapping, discovery, routing and e-mobility payment aggregator. It is
+    therefore NOT a duty-holder under this regime. It is the largest single
+    consumer of the data the regime compels others to publish. Zapmap is also
+    not a licensed UK energy supplier, not a Smart DCC party, and not subject to
+    any consumer energy data-portability obligation — the UK has no consumer
+    data right equivalent to the Australian CDR, and the Smart DCC / smart-meter
+    machinery is infrastructure that does not reach an EV charging aggregator.
+  status: not-applicable
+  statusEvidence: |
+    Recorded as not-applicable, not as "none": an open-data mandate demonstrably
+    operates in this market and Zapmap's data supply chain depends on it, but no
+    obligation attaches to Zapmap. Nothing was found claiming Zapmap complies
+    with any data-sharing mandate, so there is nothing to grade as
+    live-claimed-unverified. Separately, on 16 September 2025 Zapmap announced
+    (https://www.zapmap.com/news/dft-awards-zapmap-contract-deliver-electric-vehicle-chargepoint-open-data,
+    fetched 2026-07-27, HTTP 200) that DfT awarded it a contract to be the
+    "Electric Vehicle Chargepoint Open Data provider", aggregating "publicly
+    available data from all public chargepoints in the UK" and providing it
+    "on a periodic basis to the DfT". That is a private supply contract to a
+    government department, not a public open data API: the announcement names no
+    endpoint, no feed URL, no licence and no public access mechanism, and states
+    that the same aggregated data "is also available to the rest of the industry
+    via the Zapmap Insights product suite" — i.e. for sale. A government
+    contract to deliver open data is not an open data API, and this profile does
+    not record it as one.
+  relatedRegimesRuledOut:
+  - regime: cdr-energy
+    ruledOut: 'Australian statute; Zapmap is a UK company with no Australian operation.'
+  - regime: green-button-ontario
+    ruledOut: 'Ontario regulation; not applicable to a UK company.'
+  - regime: green-button-voluntary
+    ruledOut: >-
+      No Green Button or ESPI reference of any kind found on zapmap.com; Zapmap
+      handles charge point and session data, not household meter reads.
+  - regime: smart-meter-infrastructure
+    ruledOut: >-
+      Zapmap is not a Smart DCC user, not a licensed supplier, and carries no
+      smart-metering obligation. The UK's mandated infrastructure (Smart DCC,
+      Elexon BSC, NESO) does not touch this organization.
+dataStandard:
+  standard: no standard reference found
+  detail: |
+    No reference to OCPI, OCPP, OpenADR, IEEE 2030.5, IEC CIM 61968/61970,
+    Green Button/ESPI, or any other interoperability standard appears on the
+    Zapmap Spark pages, the data licensing page or the for-business product
+    pages. A grep of the Spark landing page HTML for "ocpi|ocpp|openapi|swagger|
+    api key|oauth|rest api" returned only incidental "json" matches from
+    embedded JSON-LD page metadata. The Search API is described as returning
+    data that is "enriched and standardised" — standardised by Zapmap, to
+    Zapmap's own proprietary shape. Treat the Spark data model as proprietary.
+consumerVsMarketData:
+  consumer_data_api: false
+  consumer_data_detail: |
+    Zapmap offers no API by which a third party can obtain an individual
+    customer's energy usage or billing data. It is not a supplier and holds no
+    meter data. The closest surface is the Pay API, which lets an integrating
+    partner start/stop a charging session and see live cost/time/kWh for that
+    session inside the partner's own app — session telemetry within a commercial
+    integration, not a consent-mediated consumer data right. Zapmap drivers
+    access their own charging history only through the Zapmap app and account
+    (customer login), with no documented data-export API.
+  market_data_open: false
+  market_data_detail: |
+    Zapmap holds arguably the most complete EV charging market dataset in the UK
+    and publishes none of it as open data. The Insights suite (Locations,
+    Utilisation, EV Driver Insights and the annual survey) is a paid commercial
+    product with a contact form as its only front door. The data licensing page
+    asserts "sui generis database rights and copyright (c) 2013-2025 Zapmap
+    Limited, All Rights Reserved" and states that extracting or reusing a
+    substantial portion of the database without express written permission
+    infringes those rights. Only the subset ingested from Open Charge Map under
+    CC BY-SA 4.0, and some Open Government Licence v3.0 sources, carry
+    downstream reuse rights — and those rights come from the upstream sources,
+    not from Zapmap. Free public HTML statistics pages exist under
+    https://www.zapmap.com/ev-stats (HTTP 200) — charge point counts, charging
+    price index, rapid charging prices, market stats — but these are rendered
+    web pages and PDF/report downloads, not a machine-readable open feed, and
+    they are not an API. The split IS the finding: this organization sits
+    downstream of a live open-data mandate and upstream of a closed commercial
+    API, and it is closed on both the consumer axis and the market axis.
+access:
+  gate: partner-only
+  gateDetail: |
+    What a developer must actually do to get in: fill in the business "Contact
+    us" form at https://www.zapmap.com/contact (or email insights@zapmap.com for
+    data enquiries), have a commercial conversation, and sign a commercial
+    agreement. For any reuse of the underlying database, the data licensing page
+    additionally requires express written permission — a licence agreement layer
+    on top of the commercial deal. There is no self-serve signup, no free tier,
+    no trial, no sandbox, no published pricing and no key issuance flow visible
+    to the public. A developer cannot obtain a Zapmap credential without a sales
+    process.
+  selfServeSignupFound: false
+  publishedPricingFound: false
+authModel:
+  scheme: none published
+  detail: |
+    No authentication scheme is documented anywhere for the Spark APIs — no API
+    key, OAuth 2, OpenID Connect, mTLS or token model is named on any public
+    page. https://www.zapmap.com/.well-known/openid-configuration returned HTTP
+    404 and https://api.zap-map.com/.well-known/openid-configuration returned
+    HTTP 404, so no OIDC discovery document is served anonymously on either
+    host. Nothing about the real auth model can be stated, and nothing is
+    invented here.
+probes:
+  date: '2026-07-27'
+  note: >-
+    Every URL below was probed with curl -sL on 2026-07-27; HTTP status recorded
+    verbatim. "000" means DNS did not resolve / no connection.
+  results:
+  - url: https://www.zapmap.com/
+    status: 200
+    note: Corporate + consumer homepage. Drupal. Names Zapmap Spark as the API product.
+  - url: https://www.zapmap.com/for-business
+    status: 200
+  - url: https://www.zapmap.com/for-business/products
+    status: 200
+  - url: https://www.zapmap.com/for-business/products/zapmap-spark
+    status: 200
+    note: API family landing page. Marketing only — no reference, no base URL, no auth. Ends in a contact form.
+  - url: https://www.zapmap.com/for-business/products/zapmap-spark/search-api
+    status: 200
+  - url: https://www.zapmap.com/for-business/products/zapmap-spark/plan-api
+    status: 200
+  - url: https://www.zapmap.com/for-business/products/zapmap-spark/pay-api
+    status: 200
+  - url: https://www.zapmap.com/for-business/products/data-and-insights
+    status: 200
+    note: Paid Insights suite (Locations, Utilisation, EV Driver Insights). Contact-sales only.
+  - url: https://www.zapmap.com/for-business/ncr-decommission
+    status: 200
+    note: Primary evidence for the Public Charge Point Regulations 2023 open-data duty and the NCR closure.
+  - url: https://www.zapmap.com/news/dft-awards-zapmap-contract-deliver-electric-vehicle-chargepoint-open-data
+    status: 200
+    note: DfT "Electric Vehicle Chargepoint Open Data provider" contract. Private supply to DfT; no public feed named.
+  - url: https://www.zapmap.com/data-licensing
+    status: 200
+    note: Sui generis database rights asserted; express written permission required; OCM CC BY-SA and OGL v3.0 subsets acknowledged.
+  - url: https://www.zapmap.com/ev-stats
+    status: 200
+    note: Free HTML statistics pages. Not machine-readable, not an API.
+  - url: https://www.zapmap.com/contact
+    status: 200
+    note: 'Zapmap Limited, company number 05960749, Unit 52 Runway East, 1 Victoria St, Redcliffe, Bristol BS1 6AA. insights@zapmap.com for data.'
+  - url: https://www.zapmap.com/terms
+    status: 200
+  - url: https://www.zapmap.com/privacy-policy
+    status: 200
+  - url: https://help.zapmap.com
+    status: 200
+    note: Consumer help centre, not developer documentation.
+  - url: https://www.zapmap.com/news
+    status: 200
+  - url: https://www.zapmap.com/rss.xml
+    status: 200
+    note: Valid RSS 2.0 channel but ZERO items; not wired as a usable feed. Not recorded as BlogRSS.
+  - url: https://www.zapmap.com/robots.txt
+    status: 200
+    note: Stock Drupal robots.txt. No API or docs paths disclosed.
+  - url: https://www.zapmap.com/sitemap.xml
+    status: 200
+    note: >-
+      Drupal Simple XML Sitemap, 30 pages harvested (~317k lines). Grepped every
+      <loc> for api/spark/develop/docs/data — the ONLY API assets in the entire
+      sitemap are the four Zapmap Spark marketing pages. No developer, docs,
+      reference, sandbox or open-data path exists anywhere on the site.
+  - url: https://developer.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://developers.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://api.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://docs.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://data.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://spark.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://sandbox.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://api-docs.zapmap.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://status.zapmap.com
+    status: 000
+    note: DNS does not resolve. No public status page.
+  - url: https://api.zap-map.com/
+    status: 200
+    note: >-
+      REAL HOST on the legacy zap-map.com domain, behind CloudFront + Envoy,
+      serving a 159-byte static "403 Forbidden — Directory access not allowed."
+      HTML body with a 200 status. This is almost certainly the production
+      Spark/app backend, but NOTHING about it is documented: no path, method,
+      auth or schema is published, so no baseURL is recorded in apis.yml. Not
+      guessed at, not probed destructively.
+  - url: https://api.zap-map.com/openapi.json
+    status: 404
+  - url: https://api.zap-map.com/swagger.json
+    status: 404
+  - url: https://api.zap-map.com/api-docs
+    status: 404
+  - url: https://api.zap-map.com/docs
+    status: 404
+  - url: https://api.zap-map.com/v1
+    status: 404
+  - url: https://api.zap-map.com/v2
+    status: 404
+  - url: https://api.zap-map.com/graphql
+    status: 404
+  - url: https://api.zap-map.com/.well-known/openid-configuration
+    status: 404
+  - url: https://www.zapmap.com/api
+    status: 404
+  - url: https://www.zapmap.com/developers
+    status: 404
+  - url: https://www.zapmap.com/openapi.json
+    status: 404
+  - url: https://www.zapmap.com/swagger.json
+    status: 404
+  - url: https://www.zapmap.com/apis.json
+    status: 404
+  - url: https://www.zapmap.com/.well-known/openid-configuration
+    status: 404
+  - url: https://www.zapmap.com/.well-known/ai-plugin.json
+    status: 404
+  - url: https://www.zapmap.com/.well-known/security.txt
+    status: 403
+  - url: https://www.zapmap.com/llms.txt
+    status: 403
+  - url: https://zapmap.readme.io
+    status: 404
+  - url: https://developer.zap-map.com
+    status: 000
+  - url: https://github.com/zapmap
+    status: 200
+    note: >-
+      A GitHub account named "zapmap" exists but carries no display name,
+      description or corroborating link to Zapmap Limited. NOT recorded as the
+      company's GitHub organization — unverified, so omitted from apis.yml.
+specHarvest:
+  openapiHarvested: false
+  specsCount: 0
+  note: >-
+    Zero machine-readable API artifacts exist to harvest. No OpenAPI, Swagger,
+    Postman collection, AsyncAPI, GraphQL schema, JSON Schema, WSDL or WADL was
+    found on zapmap.com, zap-map.com, or any probed subdomain. No openapi/
+    directory is created because there is nothing real to put in it.
+ownership:
+  note: >-
+    Good Energy plc took a 12.9% holding in Zapmap's parent Next Green Car in
+    March 2019 and exercised its option to a 50.1% majority stake, announced
+    25 June 2020 (https://www.zapmap.com/news/good-energy-increases-stake-in-zap-map,
+    HTTP 200). Recorded as reported by Zapmap; current cap table not
+    independently re-verified as of this review.
+sources:
+- url: https://www.zapmap.com/for-business/products/zapmap-spark
+  type: Documentation
+  note: Names the three Spark APIs (Search, Plan, Pay); contact-sales only.
+- url: https://www.zapmap.com/for-business/products/zapmap-spark/search-api
+  type: Documentation
+  note: 50,000+ locations UK and Ireland; 95% coverage; ~75% live data; no technical detail.
+- url: https://www.zapmap.com/for-business/products/zapmap-spark/plan-api
+  type: Documentation
+  note: Configurable route plans returned via API; no technical detail.
+- url: https://www.zapmap.com/for-business/products/zapmap-spark/pay-api
+  type: Documentation
+  note: 10,000+ Zap-Pay chargers, start/stop and live session cost; no protocol named.
+- url: https://www.zapmap.com/for-business/ncr-decommission
+  type: Regulatory
+  note: Public Charge Point Regulations 2023 open-data duty on CPOs; NCR closed 28 Nov 2024.
+- url: https://www.zapmap.com/news/dft-awards-zapmap-contract-deliver-electric-vehicle-chargepoint-open-data
+  type: Regulatory
+  note: DfT open data provider contract; data also sold via Insights.
+- url: https://www.zapmap.com/data-licensing
+  type: Legal
+  note: Database rights, express written permission, OCM CC BY-SA 4.0 and OGL v3.0 subsets.
+- url: https://www.zapmap.com/contact
+  type: Contact
+  note: Registered entity, company number and Bristol address.
+actions:
+  apisYmlCreated: true
+  apisListed: 3
+  openapiDirCreated: false
+  reason: >-
+    Three real, named, publicly described commercial APIs are recorded with
+    humanURLs and documentation properties. No baseURL is recorded for any of
+    them because none is published — api.zap-map.com resolves but is entirely
+    undocumented and is not asserted as a Spark base URL. No specification,
+    endpoint, scope or auth scheme is invented.
