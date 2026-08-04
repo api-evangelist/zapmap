@@ -1,5 +1,47 @@
 # Zapmap (zapmap)
 
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
 Zapmap (Zapmap Limited, company number 05960749, Bristol, United Kingdom) operates the UK's most comprehensive public electric-vehicle charging map and cross-network payment platform, covering 120,000+ charge points across 100+ charge point operators for 1.3 million registered drivers, and holds the Department for Transport contract to act as its electric vehicle chargepoint open data provider. It sits in the e-mobility data layer of the energy value chain, between the charge point operators legally obliged to publish open charge point data under the UK Public Charge Point Regulations 2023 and the drivers, automotive OEMs, fleets, e-mobility providers and government bodies that consume it. Its API posture is honestly commercial and closed: the Zapmap Spark suite (Search, Plan and Pay APIs) is described only on marketing product pages, with no developer portal, no public API reference, no machine-readable specification, no published authentication scheme and no self-serve signup — every route to access runs through a sales contact form and a data licence. The open data mandate in this market binds charge point operators, not Zapmap; the mandated open data that Zapmap aggregates is redistributed to DfT under contract and sold to the rest of the industry through the paid Insights product rather than published as an anonymous open feed. No consumer energy usage or billing API is offered — this is open-data-fed, closed-surface market data, with no consumer data right in play.
 
 **APIs.json:** [https://raw.githubusercontent.com/api-evangelist/zapmap/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/zapmap/refs/heads/main/apis.yml)
