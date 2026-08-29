@@ -23,6 +23,17 @@ description: >-
   product rather than published as an anonymous open feed. No consumer energy
   usage or billing API is offered — this is open-data-fed, closed-surface
   market data, with no consumer data right in play.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: contact-sales
