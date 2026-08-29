@@ -1,5 +1,8 @@
 aid: zapmap
 url: https://raw.githubusercontent.com/api-evangelist/zapmap/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "Its API posture is honestly commercial and closed: the Zapmap Spark suite (Search, Plan and Pay APIs) is described only on marketing product pages, with no developer portal, no public API reference, n"
 name: Zapmap
 kind: company
 description: >-
