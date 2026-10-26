@@ -1,0 +1,186 @@
+# Zapmap (zapmap)
+
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **Not from the company, and here with a question?** You are welcome here — we would rather be the
+> front line and point you the right way than have a good report go nowhere. What this repository
+> can answer is narrow, though, so it is worth knowing who you are actually looking for:
+>
+> - **A question about how the API works, an account, billing, or a bug in the service** — that is
+>   the company's own support, not us. We profile this API; we do not operate it and cannot see
+>   your account.
+> - **A bug in an open-source project we only catalog** — file it on that project's own repository.
+>   This has happened with a real and correct bug report that reached us instead of the people who
+>   could fix it, which helped nobody.
+> - **Anything about this listing itself** — the description, the tags, the rating, a missing or
+>   wrong artifact — is ours. Open an issue here.
+> - **Not sure, or something general about API Evangelist or APIs.io** — open an issue on the
+>   [APIs.io Inbox](https://github.com/api-search/inbox) and we will route it.
+>
+> **This repository contains no software, and we will never ask you to download anything.** There is
+> no build, release, installer, or binary here — only text and machine-readable API descriptions, so
+> there is nothing here that can be "corrupt" or need "repairing". Any issue, comment, or email
+> claiming otherwise and offering a download link is not from us and is hostile. Do not follow the
+> link; it is a lure. Report it to GitHub and, if you like, tell us at
+> [info@apievangelist.com](mailto:info@apievangelist.com) so we can take it down.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
+Zapmap (Zapmap Limited, company number 05960749, Bristol, United Kingdom) operates the UK's most comprehensive public electric-vehicle charging map and cross-network payment platform, covering 120,000+ charge points across 100+ charge point operators for 1.3 million registered drivers, and holds the Department for Transport contract to act as its electric vehicle chargepoint open data provider. It sits in the e-mobility data layer of the energy value chain, between the charge point operators legally obliged to publish open charge point data under the UK Public Charge Point Regulations 2023 and the drivers, automotive OEMs, fleets, e-mobility providers and government bodies that consume it. Its API posture is honestly commercial and closed: the Zapmap Spark suite (Search, Plan and Pay APIs) is described only on marketing product pages, with no developer portal, no public API reference, no machine-readable specification, no published authentication scheme and no self-serve signup — every route to access runs through a sales contact form and a data licence. The open data mandate in this market binds charge point operators, not Zapmap; the mandated open data that Zapmap aggregates is redistributed to DfT under contract and sold to the rest of the industry through the paid Insights product rather than published as an anonymous open feed. No consumer energy usage or billing API is offered — this is open-data-fed, closed-surface market data, with no consumer data right in play.
+
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/zapmap/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/zapmap/refs/heads/main/apis.yml)
+
+## Tags
+
+- Energy
+- United Kingdom
+- EV Charging
+- Electric Vehicles
+- Charge Point Data
+- Mobility
+- Open Data
+- Utilities
+- Payments
+- Route Planning
+
+## Timestamps
+
+- **Created:** 2026-07-27
+- **Modified:** 2026-07-27
+
+## APIs
+
+### Zapmap Spark Search API
+
+Commercial charge point search API returning Zapmap's aggregated charging location data for over 50,000 public charging locations across the UK and Ireland — location, availability status (in use / out of service), kWh pricing, CPO network, power output, plus enriched site facility and access information. Zapmap states coverage of 95% of UK public charge points with live real-time data on roughly 75% of them. No base URL, endpoint list, authentication scheme, rate limits or machine-readable specification is published; the only documented route to access is the business contact form.
+
+- **Human URL:** [https://www.zapmap.com/for-business/products/zapmap-spark/search-api](https://www.zapmap.com/for-business/products/zapmap-spark/search-api)
+
+#### Tags
+
+- EV Charging
+- Charge Point Data
+- Search
+- Real-Time Availability
+
+#### Properties
+
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark/search-api)
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark)
+- [Sign Up](https://www.zapmap.com/contact)
+
+### Zapmap Spark Plan API
+
+Commercial EV route-planning API that returns a highly configurable route plan generated by Zapmap's routing engine, selecting charging stops against driver preferences such as price, on-site facilities or minimal deviation from route, for display in a partner's own customer-facing interface. No base URL, endpoints, request or response schema, authentication scheme or specification is published; access is via the business contact form only.
+
+- **Human URL:** [https://www.zapmap.com/for-business/products/zapmap-spark/plan-api](https://www.zapmap.com/for-business/products/zapmap-spark/plan-api)
+
+#### Tags
+
+- EV Charging
+- Route Planning
+- Mobility
+
+#### Properties
+
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark/plan-api)
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark)
+- [Sign Up](https://www.zapmap.com/contact)
+
+### Zapmap Spark Pay API
+
+Commercial cross-network EV charging payment API that lets a partner application start and stop charging sessions and receive live in-session updates on cost, time and kWh across Zap-Pay enabled chargers — Zapmap cites 10,000+ charge points across leading UK CPO networks reachable through a single integration. No base URL, endpoints, authentication scheme or roaming protocol (no OCPI or OCPP reference appears anywhere in Zapmap's public material) is published; access is via the business contact form only.
+
+- **Human URL:** [https://www.zapmap.com/for-business/products/zapmap-spark/pay-api](https://www.zapmap.com/for-business/products/zapmap-spark/pay-api)
+
+#### Tags
+
+- EV Charging
+- Payments
+- Charging Sessions
+- Roaming
+
+#### Properties
+
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark/pay-api)
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark)
+- [Sign Up](https://www.zapmap.com/contact)
+
+## Common Properties
+
+- [Website](https://www.zapmap.com/)
+- [Documentation](https://www.zapmap.com/for-business/products/zapmap-spark)
+- [Products](https://www.zapmap.com/for-business/products)
+- [Data Licensing](https://www.zapmap.com/data-licensing)
+- [Terms of Service](https://www.zapmap.com/terms)
+- [Privacy Policy](https://www.zapmap.com/privacy-policy)
+- [Support Center](https://help.zapmap.com)
+- [Contact Form](https://www.zapmap.com/contact)
+- [Blog](https://www.zapmap.com/news)
+- [LinkedIn](https://www.linkedin.com/company/zap-map)
+
+## Mandate and Access Posture
+
+- **Mandate regime:** The Public Charge Point Regulations 2023 (UK) — an `other` regime for this catalog, not a consumer data right.
+- **Binds Zapmap?** No. The open-data duty falls on public charge point operators. Zapmap owns no charge points; it is the aggregator downstream of the mandate.
+- **Mandate status:** Not applicable to this organization. A live mandate exists in the market and feeds Zapmap's dataset, but Zapmap carries no obligation under it.
+- **Data standard:** No standard reference found. No OCPI, OCPP, OpenADR, IEEE 2030.5, IEC CIM or Green Button/ESPI reference appears anywhere in Zapmap's public material.
+- **Consumer data API:** No. Zapmap is not a supplier and holds no meter data; drivers see their own charging history only through the app.
+- **Open market data:** No. The dataset produced from a legally mandated open-data regime is supplied to DfT under contract and sold to industry through the paid Insights suite. Free `ev-stats` HTML pages exist, but there is no machine-readable open feed.
+- **Access gate:** Partner-only. Contact form, commercial conversation, commercial agreement, plus express written permission for any database reuse.
+- **Auth model:** None published.
+
+See [review.yml](review.yml) for every URL probed, its HTTP status, and the verbatim regulatory evidence.
+
+## Artifacts in This Repository (enrichment round 2026-07-27)
+
+Zapmap publishes no specification, so nothing here is harvested documentation. Every artifact below is either a live probe result or an observation of Zapmap's own public web client, with the evidence recorded inline.
+
+- [authentication/zapmap-authentication.yml](authentication/zapmap-authentication.yml) — the observed auth model of the undocumented `api.zap-map.com/v5` client API: an `X-Api-Key` application header plus `Authorization: Bearer <accessToken>` on user-scoped calls. No credential values are recorded and no authenticated request was made.
+- [conventions/zapmap-conventions.yml](conventions/zapmap-conventions.yml) — URI versioning (`/v5`), the `client-version` header, the `{success, resources, notices[]}` response envelope, the unauthenticated `/v5/health` endpoint, and a verbatim 35-entry path + method inventory read out of the first-party map client.
+- [errors/zapmap-error-codes.yml](errors/zapmap-error-codes.yml) — the proprietary error envelope (not RFC 9457) and every observed HTTP condition.
+- [lifecycle/zapmap-lifecycle.yml](lifecycle/zapmap-lifecycle.yml) — versioning, plus the verified absence of a status page, SLA, changelog and deprecation policy.
+- [conformance/zapmap-conformance.yml](conformance/zapmap-conformance.yml) — standards assessed. No OCPI, OCPP, ISO 15118, OAuth 2, OIDC, RFC 9457 or RFC 9116 conformance; API-key and bearer auth and HSTS confirmed.
+- [security/zapmap-domain-security.yml](security/zapmap-domain-security.yml) — TLS 1.3, HSTS, DNSSEC, SPF and DMARC `p=reject` on `zapmap.com`. No CAA record.
+- [well-known/zapmap-well-known.yml](well-known/zapmap-well-known.yml) — every `/.well-known/` probe and its status. No document is served on any host.
+- [llms/zapmap-llms.txt](llms/zapmap-llms.txt) — generated agent-facing summary. Zapmap serves no `llms.txt` of its own (HTTP 403).
+
+**The round-two finding.** A host the first review had not probed — `map.zapmap.com`, the React map embedded at `zapmap.com/live` — ships un-obfuscated bundles calling `https://api.zap-map.com/v5/`, which is a live, enforcing JSON API (every path returns `401 Missing API Key`; `GET /v5/health` returns 200). That is Zapmap's own first-party client backend, not a product: undocumented, unsupported for third parties, and unconnected to the Spark commercial offer as far as anything public shows. It changes nothing about the verdict, and no OpenAPI is written from it — paths and methods are evidence, schemas would be invention. See `roundTwo` in [review.yml](review.yml).
